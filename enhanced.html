@@ -173,6 +173,8 @@ Error message and password prompt
 
 <li>$:/temp/info-plugin</li>
 
+<li>$:/temp/search</li>
+
 <li>$:/themes/tiddlywiki/snowwhite</li>
 
 <li>$:/themes/tiddlywiki/vanilla</li>
@@ -181,9 +183,13 @@ Error message and password prompt
 
 <li>Contents</li>
 
+<li>Displaying tags</li>
+
 <li>Example section</li>
 
 <li>Example Tiddler</li>
+
+<li>showtag</li>
 
 </ul>
 </p>
@@ -9619,7 +9625,7 @@ Error message and password prompt
 <div title="$:/status/RequireReloadDueToPluginChange">
 <pre>no</pre>
 </div>
-<div list="GettingStarted [[Content tab in the side bar]]" title="$:/StoryList">
+<div created="20200617173745022" list="Contents [[Displaying tags]] showtag GettingStarted [[Content tab in the side bar]]" modified="20200617173745022" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -9635,7 +9641,7 @@ Error message and password prompt
         },
         &quot;$:/info/url/full&quot;: {
             &quot;title&quot;: &quot;$:/info/url/full&quot;,
-            &quot;text&quot;: &quot;file:///home/seb/programs/TiddlyWiki-templates/enhanced.html&quot;
+            &quot;text&quot;: &quot;file:///home/sebastian/programs/TiddlyWiki-templates/enhanced.html&quot;
         },
         &quot;$:/info/url/host&quot;: {
             &quot;title&quot;: &quot;$:/info/url/host&quot;,
@@ -9655,7 +9661,7 @@ Error message and password prompt
         },
         &quot;$:/info/url/pathname&quot;: {
             &quot;title&quot;: &quot;$:/info/url/pathname&quot;,
-            &quot;text&quot;: &quot;/home/seb/programs/TiddlyWiki-templates/enhanced.html&quot;
+            &quot;text&quot;: &quot;/home/sebastian/programs/TiddlyWiki-templates/enhanced.html&quot;
         },
         &quot;$:/info/url/search&quot;: {
             &quot;title&quot;: &quot;$:/info/url/search&quot;,
@@ -9679,6 +9685,9 @@ Error message and password prompt
         }
     }
 }</pre>
+</div>
+<div created="20200617173742956" modified="20200617174617940" title="$:/temp/search">
+<pre></pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/vanilla" description="Emphasises individual tiddlers" name="Snow White" plugin-priority="0" plugin-type="theme" title="$:/themes/tiddlywiki/snowwhite" type="application/json" version="5.1.22">
 <pre>{
@@ -9797,16 +9806,42 @@ Error message and password prompt
 
 // The exact implementation of this feature has been taken from Francis Meetze's [ext[TiddlyWiki tutorial series|https://www.youtube.com/playlist?list=PLzZCajspPU_UjFn0uy-J9URz0LP4zhxRK]]. See [[Contents]] for technical details. //</pre>
 </div>
-<div created="20200615191714077" list-before="$:/core/ui/SideBar/Open" modified="20200615192832114" tags="$:/tags/SideBar" title="Contents">
+<div color="gray" created="20200615191714077" list-before="$:/core/ui/SideBar/Open" modified="20200617174931775" tags="$:/tags/SideBar" title="Contents">
 <pre>&lt;div class=&quot;tc-table-of-contents&quot;&gt;
 &lt;&lt;toc-selective-expandable 'Contents' sort[title]&gt;&gt;
 &lt;/div&gt;</pre>
+</div>
+<div created="20200617173648047" modified="20200617175223743" tags="" title="Displaying tags">
+<pre>The following ingredients for nicely displaying tags within Tiddlers (example: {{Contents||showtag}}) have been added:
+
+* A template Tiddler called [[showtag]], containing the following code:
+```
+\define _showtag(color)
+&lt;span style=&quot;background-color:$color$&quot; class=&quot;tw-tag-label&quot;&gt;&lt;$view field=&quot;title&quot;/&gt;&lt;/span&gt;
+\end
+
+&lt;$macrocall $name=&quot;_showtag&quot; color={{!!color}}/&gt;
+```
+* A Tiddler called [[Contents]] that has a custom &quot;color&quot; field (&quot;color: lightgray&quot; in this example).
+
+This setup now allows to use code like `{{Contents||showtag}}` to display the tag &quot;Contents&quot;: {{Contents||showtag}}.
+
+---
+
+// The implementation of the tag display feature was adopted from http://tw5magick.tiddlyspot.com/. //</pre>
 </div>
 <div created="20200615192622526" modified="20200615192735186" tags="Contents" title="Example section">
 <pre></pre>
 </div>
 <div created="20200615192737836" modified="20200615192751291" tags="[[Example section]]" title="Example Tiddler">
 <pre></pre>
+</div>
+<div created="20200617173541248" modified="20200617174858276" tags="template" title="showtag">
+<pre>\define _showtag(color)
+&lt;span style=&quot;background-color:$color$&quot; class=&quot;tc-tag-label&quot;&gt;&lt;$view field=&quot;title&quot;/&gt;&lt;/span&gt;
+\end
+
+&lt;$macrocall $name=&quot;_showtag&quot; color={{!!color}}/&gt;</pre>
 </div>
 
 
