@@ -25,4 +25,4 @@ This template adds a bunch of useful features on top of the default `empty.html`
 ### Extra features:
 - **Additional side bar tools** are already activated per default: "home", "close all", "fold all tiddlers", "unfold all tiddlers"
 - **"Contents" section** in the side bar that will use *tags* to automatically keep track of the content structure of new Tiddlers
-- Support for pretty display of tags within Tiddlers
+- **Pretty display of tags** inside Tiddlers
