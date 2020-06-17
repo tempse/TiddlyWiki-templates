@@ -149,6 +149,8 @@ Error message and password prompt
 
 <li>$:/config/PageControlButtons/Visibility/$:/core/ui/Buttons/unfold-all</li>
 
+<li>$:/config/RelinkOnRename</li>
+
 <li>$:/core</li>
 
 <li>$:/DefaultTiddlers</li>
@@ -179,6 +181,8 @@ Error message and password prompt
 
 <li>$:/themes/tiddlywiki/vanilla</li>
 
+<li>code</li>
+
 <li>Content tab in the side bar</li>
 
 <li>Contents</li>
@@ -189,9 +193,13 @@ Error message and password prompt
 
 <li>Example Tiddler</li>
 
+<li>full</li>
+
 <li>Overview of enhanced features</li>
 
 <li>showtag</li>
+
+<li>Transcluding a Tiddler</li>
 
 </ul>
 </p>
@@ -218,6 +226,9 @@ Error message and password prompt
 </div>
 <div created="20200615194137267" modified="20200615194137267" title="$:/config/PageControlButtons/Visibility/$:/core/ui/Buttons/unfold-all">
 <pre>show</pre>
+</div>
+<div created="20200617183208777" modified="20200617183208777" title="$:/config/RelinkOnRename">
+<pre>yes</pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="" description="TiddlyWiki5 core" list="readme" name="Core" plugin-priority="0" plugin-type="plugin" title="$:/core" type="application/json" version="5.1.22">
 <pre>{
@@ -9618,8 +9629,8 @@ Error message and password prompt
 <div created="20200615192014165" modified="20200615192014165" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div created="20200615191802855" modified="20200615194151607" title="$:/state/tab/sidebar--595412856">
-<pre>Contents</pre>
+<div created="20200615191802855" modified="20200617182621775" title="$:/state/tab/sidebar--595412856">
+<pre>$:/core/ui/SideBar/Recent</pre>
 </div>
 <div created="20200615192919206" modified="20200615192919206" title="$:/state/toc/Contents-Example section-1843068618">
 <pre>open</pre>
@@ -9627,7 +9638,7 @@ Error message and password prompt
 <div title="$:/status/RequireReloadDueToPluginChange">
 <pre>no</pre>
 </div>
-<div created="20200617180337443" list="GettingStarted [[Overview of enhanced features]] [[Content tab in the side bar]]" modified="20200617180337443" title="$:/StoryList">
+<div list="GettingStarted [[Overview of enhanced features]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -9688,7 +9699,7 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20200617173742956" modified="20200617174617940" title="$:/temp/search">
+<div created="20200617173742956" modified="20200617183004770" title="$:/temp/search">
 <pre></pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/vanilla" description="Emphasises individual tiddlers" name="Snow White" plugin-priority="0" plugin-type="theme" title="$:/themes/tiddlywiki/snowwhite" type="application/json" version="5.1.22">
@@ -9800,6 +9811,9 @@ Error message and password prompt
     }
 }</pre>
 </div>
+<div created="20200617181320835" modified="20200617181352082" tags="template" title="code">
+<pre>&lt;pre&gt;&lt;$view field=&quot;text&quot;/&gt;&lt;/pre&gt;</pre>
+</div>
 <div created="20200615191832407" modified="20200617180346191" tags="Contents" title="Content tab in the side bar">
 <pre>''A //Contents// tab has been added to the side bar.'' Tiddlers will be added to  //Contents// according automatically by assigning tags to them.
 
@@ -9840,11 +9854,16 @@ This setup now allows to use code like `{{Contents||showtag}}` to display the ta
 <div created="20200615192737836" modified="20200615192751291" tags="[[Example section]]" title="Example Tiddler">
 <pre></pre>
 </div>
-<div created="20200617175316368" modified="20200617175447257" tags="" title="Overview of enhanced features">
+<div created="20200617180845953" modified="20200617180956028" tags="template" title="full">
+<pre>! &lt;$view field=&quot;title&quot;/&gt;
+&lt;$transclude/&gt;</pre>
+</div>
+<div created="20200617175316368" modified="20200617183223279" tags="" title="Overview of enhanced features">
 <pre>The following features have been added on top the bare (&quot;empty.html&quot;) ~TiddlyWiki:
 
 * [[Content tab in the side bar]]
-* [[Displaying tags]]</pre>
+* [[Displaying tags]]
+* [[Transcluding a Tiddler]]</pre>
 </div>
 <div created="20200617173541248" modified="20200617174858276" tags="template" title="showtag">
 <pre>\define _showtag(color)
@@ -9852,6 +9871,34 @@ This setup now allows to use code like `{{Contents||showtag}}` to display the ta
 \end
 
 &lt;$macrocall $name=&quot;_showtag&quot; color={{!!color}}/&gt;</pre>
+</div>
+<div created="20200617180958139" modified="20200617183344299" tags="" title="Transcluding a Tiddler">
+<pre>A few template tiddlers were added to enable transclusion of Tiddlers.
+
+! The //full// transclusion template
+Create a template Tiddler called [[full]] with the following content:
+{{full||code}}
+
+Now each Tiddler can be displayed inline with `{{Tiddler name||full}}`.
+
+// Here is an example using [[Overview of enhanced features]] (`{{Overview of enhanced features||full}}`): //
+
+&lt;&lt;&lt;
+{{Overview of enhanced features||full}}
+&lt;&lt;&lt;
+
+
+! The //code// transclusion template
+Create a template Tiddler called [[code]] with the following content:
+{{code||code}}
+
+Now each Tiddler can be rendered as code by simply writing `{{Tiddler Name||code}}`.
+
+// In fact, even the above code snippet was created by invoking `{{code||code}}`. //
+
+---
+
+// The implementation of the transclusion feature was taken from http://tw5magick.tiddlyspot.com/. //</pre>
 </div>
 
 
